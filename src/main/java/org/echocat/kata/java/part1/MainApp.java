@@ -2,12 +2,10 @@ package org.echocat.kata.java.part1;
 
 import org.echocat.kata.java.part1.models.PrettyPrintable;
 
-import java.io.IOException;
 import java.util.Scanner;
 
-@SuppressWarnings("UseOfSystemOutOrSystemErr")
 public class MainApp {
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) {
         final CsvPrintedProducts csvPrintedProducts = new CsvPrintedProducts();
         while (true) {
             System.out.print("========================================\n" +

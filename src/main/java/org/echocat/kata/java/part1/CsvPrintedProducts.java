@@ -1,5 +1,6 @@
 package org.echocat.kata.java.part1;
 
+import lombok.NonNull;
 import org.echocat.kata.java.part1.models.*;
 
 import java.util.Comparator;
@@ -14,17 +15,40 @@ import java.util.stream.Stream;
 
 public class CsvPrintedProducts {
     private final Parser parser = new Parser("org/echocat/kata/java/part1/data/", ';');
-    private List<Author> authors = parser.parseCsv("authors.csv", Author.fromCsvRecord);
+    private String authorsFile;
+    private String booksFile;
+    private String magazinesFile;
+    private List<Author> authors;
+    private List<Book> books;
+    private List<Magazine> magazines;
 
-    private List<Book> books = parser.parseCsv("books.csv", Book.fromCsvRecord)
-            .stream()
-            .map(book -> book.resolveAuthors(authors))
-            .collect(Collectors.toList());
+    public CsvPrintedProducts() {
+        authorsFile = "authors.csv";
+        booksFile = "books.csv";
+        magazinesFile = "magazines.csv";
+        loadDataFomFiles();
+    }
 
-    private List<Magazine> magazines = parser.parseCsv("magazines.csv", Magazine.fromCsvRecord)
-            .stream()
-            .map(magazine -> magazine.resolveAuthors(authors))
-            .collect(Collectors.toList());
+    public CsvPrintedProducts(@NonNull String authorsFile,
+                              @NonNull String booksFile,
+                              @NonNull String magazinesFile) {
+        this.authorsFile = authorsFile;
+        this.booksFile = booksFile;
+        this.magazinesFile = magazinesFile;
+        loadDataFomFiles();
+    }
+
+    public void loadDataFomFiles() {
+        authors = parser.parseCsv(authorsFile, Author.fromCsvRecord);
+        books = parser.parseCsv(booksFile, Book.fromCsvRecord)
+                .stream()
+                .map(book -> book.resolveAuthors(authors))
+                .collect(Collectors.toList());
+        magazines = parser.parseCsv(magazinesFile, Magazine.fromCsvRecord)
+                .stream()
+                .map(magazine -> magazine.resolveAuthors(authors))
+                .collect(Collectors.toList());
+    }
 
     private Stream<AbstractPrintedProduct> printedProductStream() {
         return Stream.concat(books.stream(), magazines.stream());
