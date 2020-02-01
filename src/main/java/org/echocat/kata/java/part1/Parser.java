@@ -21,7 +21,10 @@ public class Parser {
 
     public Parser(String basePath, Character delimiter) {
         this.basePath = basePath;
-        csvFormat = CSVFormat.newFormat(delimiter);
+        csvFormat = CSVFormat.newFormat(delimiter)
+                .withFirstRecordAsHeader()
+                .withIgnoreHeaderCase()
+                .withTrim();
     }
 
     public <T> List<T> parseCsv(String fileName, Function<CSVRecord, T> convert) {
@@ -32,7 +35,6 @@ public class Parser {
             Reader in = new FileReader(resource.getFile());
             Iterable<CSVRecord> records = csvFormat.parse(in);
             return StreamSupport.stream(records.spliterator(), false)
-                    .skip(1)
                     .map(convert)
                     .collect(Collectors.toList());
         } catch (IOException e) {

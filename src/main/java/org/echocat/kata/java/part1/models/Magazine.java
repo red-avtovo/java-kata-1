@@ -31,10 +31,10 @@ public class Magazine extends AbstractPrintedProduct {
 
     private static final SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
     public static final Function<CSVRecord, Magazine> fromCsvRecord = (record) ->
-            new Magazine(record.get(0),
-                    record.get(1),
-                    record.get(2),
-                    record.get(3)
+            new Magazine(record.get("\uFEFFtitle"),
+                    record.get("isbn"),
+                    record.get("authors"),
+                    record.get("publishedAt")
             );
 
     public Magazine(String title, String isbn, String authorEmails, String publishedAt) {

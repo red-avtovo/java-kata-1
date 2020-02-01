@@ -18,9 +18,9 @@ public class Author {
     private String firstName;
     private String lastName;
     public static final Function<CSVRecord, Author> fromCsvRecord = (record) ->
-            new Author(record.get(0),
-                    record.get(1),
-                    record.get(2)
+            new Author(record.get("\uFEFFemail"),
+                    record.get("firstName"),
+                    record.get("lastName")
             );
 
     public String prettyOut() {

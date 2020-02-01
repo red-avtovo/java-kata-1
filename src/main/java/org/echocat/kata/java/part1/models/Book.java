@@ -24,10 +24,10 @@ public class Book extends AbstractPrintedProduct {
     private List<Author> authors;
     private String description;
     public static final Function<CSVRecord, Book> fromCsvRecord = (record) ->
-            new Book(record.get(0),
-                    record.get(1),
-                    record.get(2),
-                    record.get(3)
+            new Book(record.get("\uFEFFtitle"),
+                    record.get("isbn"),
+                    record.get("authors"),
+                    record.get("description")
             );
 
     public Book(String title, String isbn, String authorEmails, String description) {
