@@ -4,7 +4,6 @@ import org.echocat.kata.java.part1.models.Book;
 import org.echocat.kata.java.part1.models.Magazine;
 import org.echocat.kata.java.part1.models.PrettyPrintable;
 
-import java.util.Arrays;
 import java.util.Scanner;
 
 public class MainApp {
