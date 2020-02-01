@@ -2,6 +2,7 @@ package org.echocat.kata.java.part1.models;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import org.apache.commons.csv.CSVRecord;
 
 import java.util.Arrays;
@@ -15,8 +16,9 @@ import java.util.stream.Collectors;
  */
 
 @Data
+@EqualsAndHashCode(callSuper = true)
 @AllArgsConstructor
-public class Book {
+public class Book extends WithIsbnAndAuthorEmail implements PrettyPrintable {
     private String title;
     private String isbn;
     private List<String> authorEmails;
@@ -37,13 +39,12 @@ public class Book {
         return this;
     }
 
-    @Override
-    public String toString() {
-        return "Book{" +
-                "title='" + title + '\'' +
-                ", isbn='" + isbn + '\'' +
-                ", authors=" + authors +
-                ", description='" + description + '\'' +
-                '}';
+    public void prettyPrint() {
+        final String authorsOut = authors.stream().map(Author::prettyOut).collect(Collectors.joining("\n"));
+        System.out.println("Book\n" +
+                "\ttitle='" + title + "'\n" +
+                "\tisbn='" + isbn + "'\n" +
+                "\tauthors=\n" + authorsOut + "\n" +
+                "\tdescription='" + description);
     }
 }

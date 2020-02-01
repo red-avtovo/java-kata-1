@@ -2,6 +2,7 @@ package org.echocat.kata.java.part1.models;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import org.apache.commons.csv.CSVRecord;
 
 import java.text.ParseException;
@@ -12,14 +13,17 @@ import java.util.List;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
+
 /**
  * @author red
  * @since 01.02.20
  */
 
+
 @Data
+@EqualsAndHashCode(callSuper = true)
 @AllArgsConstructor
-public class Magazine {
+public class Magazine extends WithIsbnAndAuthorEmail implements PrettyPrintable {
     private String title;
     private String isbn;
     private List<String> authorEmails;
@@ -50,13 +54,12 @@ public class Magazine {
         return this;
     }
 
-    @Override
-    public String toString() {
-        return "Magazine{" +
-                "title='" + title + '\'' +
-                ", isbn='" + isbn + '\'' +
-                ", authors=" + authors +
-                ", publishedAt=" + publishedAt +
-                '}';
+    public void prettyPrint() {
+        final String authorsOut = authors.stream().map(Author::prettyOut).collect(Collectors.joining("\n"));
+        System.out.println("Magazine\n" +
+                "\ttitle='" + title + "'\n" +
+                "\tisbn='" + isbn + "'\n" +
+                "\tauthors=\n" + authorsOut + "\n" +
+                "\tpublishedAt='" + publishedAt);
     }
 }

@@ -22,4 +22,10 @@ public class Author {
                     record.get(1),
                     record.get(2)
             );
+
+    public String prettyOut() {
+        return "\t\tAuthor\n" +
+                "\t\t\temail='" + email + "'\n" +
+                "\t\t\tname='" + firstName + " " + lastName + "'";
+    }
 }
