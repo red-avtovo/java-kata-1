@@ -1,5 +1,7 @@
 package org.echocat.kata.java.part1;
 
+import org.echocat.kata.java.part1.models.PrettyPrintable;
+
 import java.io.IOException;
 import java.util.Scanner;
 
@@ -19,20 +21,24 @@ public class MainApp {
             final int input = new Scanner(System.in).nextInt();
             switch (input) {
                 case 1:
-                    csvPrintedProducts.printProducts();
+                    csvPrintedProducts.getProducts()
+                            .forEach(PrettyPrintable::prettyPrint);
                     break;
                 case 2:
                     System.out.print("Enter ISBN: ");
                     final String isbn = new Scanner(System.in).nextLine();
-                    csvPrintedProducts.findByIsbn(isbn);
+                    csvPrintedProducts.findByIsbn(isbn)
+                            .forEach(PrettyPrintable::prettyPrint);
                     break;
                 case 3:
                     System.out.print("Enter Author email: ");
                     final String email = new Scanner(System.in).nextLine();
-                    csvPrintedProducts.printByAuthor(email);
+                    csvPrintedProducts.findByAuthor(email)
+                            .forEach(PrettyPrintable::prettyPrint);
                     break;
                 case 4:
-                    csvPrintedProducts.printSortedByTitle();
+                    csvPrintedProducts.getSortedByTitle()
+                            .forEach(PrettyPrintable::prettyPrint);
                     break;
                 case 5:
                     return;

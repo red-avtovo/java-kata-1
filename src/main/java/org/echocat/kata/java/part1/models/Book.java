@@ -18,7 +18,7 @@ import java.util.stream.Collectors;
 @Data
 @EqualsAndHashCode(callSuper = true)
 @AllArgsConstructor
-public class Book extends AbstractPrintedProduct implements PrettyPrintable {
+public class Book extends AbstractPrintedProduct {
     private String title;
     private String isbn;
     private List<String> authorEmails;

@@ -30,26 +30,26 @@ public class CsvPrintedProducts {
         return Stream.concat(books.stream(), magazines.stream());
     }
 
-    public void printProducts() {
-        printedProductStream()
-                .forEach(PrettyPrintable::prettyPrint);
+    public List<AbstractPrintedProduct> getProducts() {
+        return printedProductStream()
+                .collect(Collectors.toList());
     }
 
-    public void findByIsbn(String isbn) {
-        printedProductStream()
+    public List<AbstractPrintedProduct> findByIsbn(String isbn) {
+        return printedProductStream()
                 .filter(item -> item.getIsbn().equals(isbn))
-                .forEach(PrettyPrintable::prettyPrint);
+                .collect(Collectors.toList());
     }
 
-    public void printByAuthor(String authorEmail) {
-        printedProductStream()
+    public List<AbstractPrintedProduct> findByAuthor(String authorEmail) {
+        return printedProductStream()
                 .filter(item -> item.getAuthorEmails().contains(authorEmail))
-                .forEach(PrettyPrintable::prettyPrint);
+                .collect(Collectors.toList());
     }
 
-    public void printSortedByTitle() {
-        printedProductStream()
+    public List<AbstractPrintedProduct> getSortedByTitle() {
+        return printedProductStream()
                 .sorted(Comparator.comparing(AbstractPrintedProduct::getTitle))
-                .forEach(PrettyPrintable::prettyPrint);
+                .collect(Collectors.toList());
     }
 }
