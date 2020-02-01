@@ -4,6 +4,7 @@ import org.echocat.kata.java.part1.models.AbstractPrintedProduct;
 import org.junit.Test;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -41,6 +42,11 @@ public class CsvPrintedProductsTest {
 
     @Test
     public void getSortedByTitle() {
-
+        final List<AbstractPrintedProduct> sortedByTitle = printedProducts.getSortedByTitle();
+        assertThat(sortedByTitle).hasSize(14);
+        final List<String> titles = sortedByTitle.stream().map(AbstractPrintedProduct::getTitle)
+                .collect(Collectors.toList());
+        final List<String> sortedTitles = titles.stream().sorted().collect(Collectors.toList());
+        assertThat(titles).isEqualTo(sortedTitles);
     }
 }
