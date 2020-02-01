@@ -76,4 +76,18 @@ public class CsvPrintedProducts {
                 .sorted(Comparator.comparing(AbstractPrintedProduct::getTitle))
                 .collect(Collectors.toList());
     }
+
+    public void addBook(@NonNull Book book) {
+        books.add(book.resolveAuthors(authors));
+        persistNewData();
+    }
+
+    public void addMagazine(@NonNull Magazine magazine) {
+        magazines.add(magazine.resolveAuthors(authors));
+        persistNewData();
+    }
+
+    private void persistNewData() {
+        // TODO: save in a new Csv file
+    }
 }

@@ -22,7 +22,6 @@ import java.util.stream.Collectors;
 
 @Data
 @EqualsAndHashCode(callSuper = true)
-@AllArgsConstructor
 public class Magazine extends AbstractPrintedProduct {
     private String title;
     private String isbn;
@@ -34,10 +33,16 @@ public class Magazine extends AbstractPrintedProduct {
     public static final Function<CSVRecord, Magazine> fromCsvRecord = (record) ->
             new Magazine(record.get(0),
                     record.get(1),
-                    Arrays.asList(record.get(2).split(",")),
-                    null,
-                    parseDate(record.get(3))
+                    record.get(2),
+                    record.get(3)
             );
+
+    public Magazine(String title, String isbn, String authorEmails, String publishedAt) {
+        this.title = title;
+        this.isbn = isbn;
+        this.authorEmails = Arrays.asList(authorEmails.split(","));
+        this.publishedAt = parseDate(publishedAt);
+    }
 
     private static Date parseDate(String record) {
         try {
