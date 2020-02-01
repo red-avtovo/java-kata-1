@@ -3,6 +3,7 @@ package org.echocat.kata.java.part1;
 import org.echocat.kata.java.part1.models.*;
 
 import java.io.IOException;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Scanner;
 import java.util.stream.Collectors;
@@ -49,24 +50,30 @@ public class MainApp {
                 case 3:
                     findByAuthor();
                     break;
+                case 4:
+                    printSortedByTitle();
+                    break;
                 case 5:
                     return;
                 default:
-                    System.out.println("Wrong input");
+                    System.out.println("Wrong input!");
             }
-
         }
     }
 
+    private Stream<AbstractPrintedProduct> printedProductStream() {
+        return Stream.concat(books.stream(), magazines.stream());
+    }
+
     private void printBooksAndMagazines() {
-        Stream.concat(books.stream(), magazines.stream())
+        printedProductStream()
             .forEach(PrettyPrintable::prettyPrint);
     }
 
     private void findByIsbn() {
         System.out.print("Enter ISBN: ");
         final String isbn = new Scanner(System.in).nextLine();
-        Stream.concat(books.stream(), magazines.stream())
+        printedProductStream()
                 .filter(item -> item.getIsbn().equals(isbn))
                 .forEach(PrettyPrintable::prettyPrint);
     }
@@ -74,9 +81,14 @@ public class MainApp {
     private void findByAuthor() {
         System.out.print("Enter Author email: ");
         final String email = new Scanner(System.in).nextLine();
-        Stream.concat(books.stream(), magazines.stream())
+        printedProductStream()
                 .filter(item -> item.getAuthorEmails().contains(email))
                 .forEach(PrettyPrintable::prettyPrint);
     }
 
+    private void printSortedByTitle() {
+        printedProductStream()
+                .sorted(Comparator.comparing(AbstractPrintedProduct::getTitle))
+                .forEach(PrettyPrintable::prettyPrint);
+    }
 }

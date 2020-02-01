@@ -23,7 +23,7 @@ import java.util.stream.Collectors;
 @Data
 @EqualsAndHashCode(callSuper = true)
 @AllArgsConstructor
-public class Magazine extends WithIsbnAndAuthorEmail implements PrettyPrintable {
+public class Magazine extends AbstractPrintedProduct implements PrettyPrintable {
     private String title;
     private String isbn;
     private List<String> authorEmails;
